@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    {% block content %}
+    {% for message in messages %}
+    <div class="container ">
+    <div class="alert alert-success" role="alert">
+    {{message}}
+    </div>
+  </div>
+    {% endfor %}
+    <div class="container">
+    {% if  object %}
+        <h1>Student Information</h1>
+       
+        <table class="table table-info"> 
+            <thead>
+            <tr>
+              <th scope="col">Sl No.</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Phone Number</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          {% for item in object %}
+          <tbody class="table-group-divider">
+            <tr>
+              <th scope="row">{{item.id}}</th>
+              <td>{{item.name}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.phone}}</td>
+              <div class="col-mb-3">
+
+                <td><a href="{% url "update_student" item.id %}"><button type="button" class="btn btn-warning">Update</button></a>
+                    <a href="{% url "delete_student" item.id %}">  <button type="button" class="btn btn-danger">Delete</button></td></a>
+            </div>
+            </tr>
+          </tbody>
+          
+          {% endfor %}
+          <div class="col-mb-6">
+            <a href="{%url 'add_student'%}"><button type="button" class="btn btn-primary">Add Student</button></a>
+          </div> 
+        </table>
+    </div>
+    {% else %}
+    <a href="{%url 'add_student'%}"><button type="button" class="btn btn-primary">Create a new Student</button></a>
+    {% endif %}
+    {% endblock content %}
+</body>
+</html>
